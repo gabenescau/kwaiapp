@@ -1,0 +1,11 @@
+# HTTrack Website Copier Cookie File
+# This file format is compatible with Netscape cookies
+.api.whatsapp.com	TRUE	/send	FALSE	1999999999	wa_ul	f8db230d-1288-40a9-b067-593a2134f56a
+.google.com	TRUE	/	FALSE	1999999999	__Secure-STRP	AEEP7gIoowyFEqukPnHcTJcUBNiFLzE_St0s4x_8PSYFWlP9570sqqphD8EAO9Hav66TOAB8QDgV3xRmScfUl6vBIJ7WVU2bhf42
+www.google.com	TRUE	/	FALSE	1999999999	SameSite	strict
+.google.com	TRUE	/	FALSE	1999999999	NID	529=dzwGiEfCVvDTDgUkMLlLPqN-9Akn3JcJQOX_5g7LOiz2bNF76HE47vNCCMpdDiQQ_SAAsCZYMhonBXkfBNDTyjqvsFHfT26xVOwshdutNNFt-Jx05qybpKkzfbvniAkR3Q-M5irleKhOWeI7r9LWeFiLHL-PAKnaHL3L6b9OjnhJb9vu9y0_tSWSVLHZdRCcCnrkdU6KGgdp7eH3uz7IYAlj4x7AHA
+.google.com	TRUE	/	FALSE	1999999999	__Secure-BUCKET	CPYB
+.whatsapp.com	TRUE	/	FALSE	1999999999	wa_lang_pref	pt_br
+api.whatsapp.com	TRUE	/	FALSE	1999999999	SameSite	deleted
+api.whatsapp.com	TRUE	/	FALSE	1999999999	SameSite	Lax
+
