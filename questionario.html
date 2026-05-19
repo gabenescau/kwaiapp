@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+    <title>Atendimento — Questionário Premiado</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        chat: '#efeae2', 
+                        'wa-header': '#008069',
+                        'wa-in': '#ffffff',
+                        'wa-out': '#d9fdd3',
+                        'wa-input': '#f0f2f5',
+                        'wa-system': '#ffeecd',
+                        'wa-system-foreground': '#54656f',
+                        foreground: '#111827',
+                        muted: { foreground: '#6b7280' }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background-color: theme('colors.chat'); color: theme('colors.foreground'); font-family: sans-serif; }
+        .chat-bg { background-image: url('https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png'); background-size: cover; background-attachment: fixed; }
+        .typing-indicator span { display: inline-block; width: 6px; height: 6px; background-color: #888; border-radius: 50%; margin: 0 2px; animation: typing 1.4s infinite both; }
+        .typing-indicator span:nth-child(1) { animation-delay: 0s; }
+        .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+        .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+        @keyframes typing { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1); } }
+        /* Smooth scroll */
+        html { scroll-behavior: smooth; }
+    </style>
+    <!-- Meta Pixel Code -->
+    <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '1520663849512203');
+    fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=1520663849512203&ev=PageView&noscript=1"
+    /></noscript>
+    <!-- End Meta Pixel Code -->
+    <!-- UTMify -->
+    <script src="https://cdn.utmify.com.br/scripts/utms/latest.js" data-utmify-prevent-xcod-sck data-utmify-prevent-subids async defer></script>
+</head>
+<body>
+<div class="fixed inset-0 flex flex-col chat-bg overflow-hidden" style="height: 100dvh;">
+    <!-- Header WhatsApp -->
+    <header class="bg-wa-header text-white px-3 py-2 flex items-center gap-3 shadow-md z-10 shrink-0">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 shrink-0"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>
+        <img src="https://i.pravatar.cc/150?img=47" alt="Julia" class="w-10 h-10 rounded-full object-cover shrink-0"/>
+        <div class="flex-1 min-w-0">
+            <div class="flex items-center gap-1">
+                <span class="font-semibold truncate">Atendente Julia</span>
+                <svg viewBox='0 0 22 22' class="w-4 h-4 fill-sky-500 shrink-0"><path d='M20.396 11c-.018-.646-.215-1.275-.57-1.816-.354-.54-.852-.972-1.438-1.246.223-.607.27-1.264.14-1.897-.131-.634-.437-1.218-.882-1.687-.47-.445-1.053-.75-1.687-.882-.633-.13-1.29-.083-1.897.14-.273-.587-.704-1.086-1.245-1.44S11.647 1.62 11 1.604c-.646.017-1.273.213-1.813.568s-.969.854-1.24 1.44c-.608-.223-1.267-.272-1.902-.14-.635.13-1.22.436-1.69.882-.445.47-.749 1.055-.878 1.688-.13.633-.08 1.29.144 1.896-.587.274-1.087.705-1.443 1.245-.356.54-.555 1.17-.574 1.817.02.647.218 1.276.574 1.817.356.54.856.972 1.443 1.245-.224.606-.274 1.263-.144 1.896.13.634.433 1.218.877 1.688.47.443 1.054.747 1.687.878.633.132 1.29.084 1.897-.136.274.586.705 1.084 1.246 1.439.54.354 1.17.551 1.816.569.647-.016 1.276-.213 1.817-.567s.972-.854 1.245-1.44c.604.239 1.266.296 1.903.164.636-.132 1.22-.447 1.68-.907.46-.46.776-1.044.908-1.681s.075-1.299-.165-1.903c.586-.274 1.084-.705 1.439-1.246.354-.54.551-1.17.569-1.816zM9.662 14.85l-3.429-3.428 1.293-1.302 2.072 2.072 4.4-4.794 1.347 1.246z'/></svg>
+            </div>
+            <p class="text-xs text-white/80 italic" id="statusHeader">online</p>
+        </div>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><path d="m16 13 5.223 3.482a.5.5 0 0 0 .777-.416V7.87a.5.5 0 0 0-.752-.432L16 10.5"/><rect x="2" y="6" width="14" height="12" rx="2"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384"/></svg>
+    </header>
+
+    <!-- Chat Body -->
+    <div class="flex-1 min-h-0 overflow-y-auto overscroll-contain px-3 py-4" id="chatContainer">
+        <div class="max-w-2xl mx-auto space-y-3" id="chatArea">
+            <div class="flex justify-center mb-2">
+                <div class="bg-wa-system text-wa-system-foreground text-[11px] font-medium rounded-lg px-3 py-1.5 shadow-sm flex items-center gap-1.5">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+                    Esta é uma conta comercial
+                </div>
+            </div>
+            <!-- Messages will be injected here -->
+        </div>
+        
+        <!-- Options area -->
+        <div id="optionsArea" class="max-w-2xl mx-auto flex flex-col items-end gap-2 pt-2 mt-2" style="display: none;"></div>
+        
+        <!-- Final CTA area -->
+        <div id="ctaArea" class="max-w-2xl mx-auto flex flex-col items-center gap-3 pt-6 pb-4" style="display: none;">
+            <a href="https://seguropagamentos.com.br/YOUTUBESUPORTE" class="bg-green-500 hover:bg-green-600 text-white font-extrabold text-lg px-6 py-4 rounded-xl shadow-lg active:scale-95 transition w-full max-w-md text-center animate-pulse">QUERO PAGAR A TAXA</a>
+        </div>
+    </div>
+
+    <!-- Input Footer -->
+    <form class="bg-wa-input p-2 flex items-center gap-2 shrink-0 pb-[max(0.5rem,env(safe-area-inset-bottom))]" onsubmit="event.preventDefault()">
+        <input type="text" placeholder="Selecione uma opção acima..." disabled class="flex-1 bg-white rounded-full px-4 py-2.5 text-sm outline-none disabled:opacity-60"/>
+        <button type="submit" disabled class="w-11 h-11 rounded-full bg-wa-header text-white flex items-center justify-center disabled:opacity-50">
+            <svg viewBox="0 0 24 24" class="w-5 h-5" fill="currentColor"><path d="M2 21l21-9L2 3v7l15 2-15 2z"/></svg>
+        </button>
+    </form>
+</div>
+
+<script>
+const chatArea = document.getElementById('chatArea');
+const optionsArea = document.getElementById('optionsArea');
+const ctaArea = document.getElementById('ctaArea');
+const chatContainer = document.getElementById('chatContainer');
+const statusHeader = document.getElementById('statusHeader');
+
+const userName = localStorage.getItem('userName') || 'Amigo(a)';
+
+const steps = [
+    {
+        bot: [
+            `Parabéns, ${userName}, você foi selecionado(a)! 🎉`,
+            "O YouTube precisa de você para melhorar a experiência dos seus anúncios, respondendo algumas perguntas que ajudam os anunciantes.",
+            "Você acaba de receber acesso à nova ferramenta do YouTube para responder à pesquisa de anunciantes.",
+            "Aproveite, você já ganhou R$90! 💰",
+            "Responda 3 perguntas e realize seu primeiro saque em minutos!"
+        ],
+        options: ["Clique aqui para iniciar o questionário"]
+    },
+    {
+        bot: [
+            "💰 Seu saldo atual: R$ 90,00",
+            "Responda à pergunta abaixo sobre os anunciantes do YouTube 👇",
+            "Quais dessas marcas de refrigerante você consome com mais frequência?"
+        ],
+        options: ["Schin", "Guaraná Antarctica", "Sprite", "Coca-Cola", "Nenhuma das anteriores"]
+    },
+    {
+        bot: [
+            "🎉 Você ganhou na pergunta anterior! +R$ 30,00",
+            "💰 Seu saldo atual: R$ 120,00",
+            `${userName}, em poucos minutos você poderá receber até R$ 2.000 do YouTube 💰`,
+            "Responda à pergunta abaixo sobre os anunciantes do YouTube 👇",
+            "Qual desses serviços de streaming você mais assiste em seu dia a dia?"
+        ],
+        options: ["Netflix", "Amazon Prime Video", "Disney+", "HBO Max", "Nenhum dos anteriores"]
+    },
+    {
+        bot: [
+            "🎉 Você ganhou na pergunta anterior! +R$ 48,00",
+            "💰 Seu saldo atual: R$ 168,00",
+            "Responda à pergunta abaixo sobre os anunciantes do YouTube 👇",
+            "Qual dessas marcas de celular você escolheria para comprar hoje?"
+        ],
+        options: ["Apple", "Samsung", "Xiaomi", "Motorola", "Nenhum dos anteriores"]
+    },
+    {
+        bot: [
+            "🎉 Você ganhou na pergunta anterior! +R$ 12,00",
+            "💰 Seu saldo atual: R$ 180,00",
+            "Você completou suas três primeiras pesquisas! Agora, está pronto para fazer seu primeiro saque! 🎉",
+            "Estamos validando sua participação em nosso questionário... ⏳",
+            "✅ Verificado!",
+            "Você está qualificada para nosso questionário! 🎊",
+            "Para confirmarmos que você não é um robô, marque a data que você está respondendo esse questionário:",
+            "Qual opção está correta?"
+        ],
+        options: ["{today}", "quarta-feira, 11 de outubro de 2024", "sexta-feira, 25 de junho de 2025"]
+    },
+    {
+        bot: [
+            "Para realizar seu saque, assista a um vídeo de 4 minutos! 🎬",
+            "Clique no botão abaixo para iniciar 👇"
+        ],
+        video: "69ff5b9c9c0c7d2462e88151"
+    }
+];
+
+const finalMessages = [
+    "Parabéns você completou todas as perguntas com sucesso! 😍",
+    "Clique no botão abaixo para realizar o seu saque"
+];
+
+let currentStep = 0;
+
+function scrollToBottom() {
+    setTimeout(() => {
+        chatContainer.scrollTo({ top: chatContainer.scrollHeight, behavior: 'smooth' });
+    }, 50);
+}
+
+function getCurrentTime() {
+    return new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+}
+
+function getTodayString() {
+    return new Date().toLocaleDateString("pt-BR", { weekday: "long", day: "numeric", month: "long", year: "numeric" });
+}
+
+function createBotMessage(text) {
+    const time = getCurrentTime();
+    return `
+    <div class="flex justify-start items-end gap-1.5 animate-[fadeIn_0.3s_ease-out]">
+        <img src="https://i.pravatar.cc/150?img=47" class="w-7 h-7 rounded-full object-cover shrink-0 mb-1"/>
+        <div class="max-w-[78%] bg-wa-in text-foreground rounded-lg rounded-bl-sm px-3 py-2 shadow-sm relative">
+            <p class="text-sm whitespace-pre-wrap">${text}</p>
+            <p class="text-[10px] text-muted-foreground text-right mt-0.5 leading-none">${time}</p>
+        </div>
+    </div>`;
+}
+
+function createUserMessage(text) {
+    const time = getCurrentTime();
+    return `
+    <div class="flex justify-end animate-[fadeIn_0.3s_ease-out]">
+        <div class="max-w-[80%] bg-wa-out text-foreground rounded-lg rounded-tr-sm px-3 py-2 shadow-sm relative">
+            <p class="text-sm whitespace-pre-wrap">${text}</p>
+            <div class="flex items-center justify-end gap-1 mt-0.5 leading-none">
+                <p class="text-[10px] text-muted-foreground">${time}</p>
+                <svg viewBox="0 0 16 15" width="16" height="15" class="fill-sky-500"><path d="M15.01 3.316l-.478-.372a.365.365 0 0 0-.51.063L8.666 9.879a.32.32 0 0 1-.484.033l-.358-.325a.319.319 0 0 0-.484.032l-.378.483a.418.418 0 0 0 .036.541l1.32 1.266c.143.14.361.125.484-.033l6.272-8.048a.366.366 0 0 0-.064-.512zm-4.1 0l-.478-.372a.365.365 0 0 0-.51.063L4.566 9.879a.32.32 0 0 1-.484.033L1.891 7.769a.366.366 0 0 0-.515.006l-.423.433a.364.364 0 0 0 .006.514l3.258 3.185c.143.14.361.125.484-.033l6.272-8.048a.365.365 0 0 0-.063-.51z"/></svg>
+            </div>
+        </div>
+    </div>`;
+}
+
+function createTypingIndicator() {
+    const id = 'typing-' + Math.random().toString(36).substr(2, 9);
+    const html = `
+    <div id="${id}" class="flex justify-start items-end gap-1.5 animate-[fadeIn_0.3s_ease-out]">
+        <img src="https://i.pravatar.cc/150?img=47" class="w-7 h-7 rounded-full object-cover shrink-0 mb-1"/>
+        <div class="bg-wa-in rounded-lg rounded-bl-sm px-4 py-3 shadow-sm flex items-center typing-indicator">
+            <span></span><span></span><span></span>
+        </div>
+    </div>`;
+    return { html, id };
+}
+
+function createVideoMessage(videoId) {
+    const time = getCurrentTime();
+    return `
+    <div class="flex justify-start items-end gap-1.5 animate-[fadeIn_0.3s_ease-out]">
+        <img src="https://i.pravatar.cc/150?img=47" class="w-7 h-7 rounded-full object-cover shrink-0 mb-1"/>
+        <div class="max-w-[92%] w-[92%] bg-wa-in text-foreground rounded-lg rounded-bl-sm px-2 py-2 shadow-sm relative">
+            <div style="position:relative;padding:56.25% 0 0 0;">
+                <iframe src="https://scripts.converteai.net/abbfb8e9-1820-4d22-b6f1-31161a8ea891/players/${videoId}/v4/embed.html" frameborder="0" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
+            </div>
+            <p class="text-[10px] text-muted-foreground text-right mt-1 leading-none">${time}</p>
+        </div>
+    </div>`;
+}
+
+async function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function playStep(stepIndex) {
+    const step = steps[stepIndex];
+    if (!step) return;
+
+    for (let msg of step.bot) {
+        statusHeader.innerText = 'digitando...';
+        const typing = createTypingIndicator();
+        chatArea.insertAdjacentHTML('beforeend', typing.html);
+        scrollToBottom();
+        
+        await sleep(1500 + Math.min(msg.length * 40, 2000));
+        
+        document.getElementById(typing.id).remove();
+        statusHeader.innerText = 'online';
+        
+        chatArea.insertAdjacentHTML('beforeend', createBotMessage(msg));
+        scrollToBottom();
+        await sleep(500);
+    }
+
+    if (step.video) {
+        chatArea.insertAdjacentHTML('beforeend', createVideoMessage(step.video));
+        scrollToBottom();
+        
+        // Mostrar CTA apenas aos 13 minutos (780 segundos) do vídeo
+        let ctaShown = false;
+        window.addEventListener('message', function(e) {
+            const data = e.data;
+            if (data && data.mime === 'smartplayer/message-text-v4' && data.id === step.video && data.type === 'videoTimeUpdate') {
+                if (data.payload && typeof data.payload.time === 'number') {
+                    if (data.payload.time >= 780 && !ctaShown) {
+                        ctaShown = true;
+                        showFinalCTA();
+                    }
+                }
+            }
+        });
+    } else if (step.options) {
+        optionsArea.innerHTML = '';
+        step.options.forEach(opt => {
+            const label = opt.replace('{today}', getTodayString());
+            const btn = document.createElement('button');
+            btn.className = 'bg-wa-out text-foreground rounded-2xl rounded-tr-sm px-4 py-2 shadow-sm text-sm font-medium border border-wa-header/20 hover:bg-wa-out/80 transition active:scale-95';
+            btn.innerText = label;
+            btn.onclick = () => handleOptionClick(label);
+            optionsArea.appendChild(btn);
+        });
+        optionsArea.style.display = 'flex';
+        scrollToBottom();
+    }
+}
+
+async function handleOptionClick(optionText) {
+    optionsArea.style.display = 'none';
+    chatArea.insertAdjacentHTML('beforeend', createUserMessage(optionText));
+    scrollToBottom();
+    
+    currentStep++;
+    await sleep(800);
+    playStep(currentStep);
+}
+
+async function showFinalCTA() {
+    for (let msg of finalMessages) {
+        statusHeader.innerText = 'digitando...';
+        const typing = createTypingIndicator();
+        chatArea.insertAdjacentHTML('beforeend', typing.html);
+        scrollToBottom();
+        await sleep(2000);
+        document.getElementById(typing.id).remove();
+        statusHeader.innerText = 'online';
+        chatArea.insertAdjacentHTML('beforeend', createBotMessage(msg));
+        scrollToBottom();
+    }
+    
+    ctaArea.style.display = 'flex';
+    scrollToBottom();
+}
+
+// Iniciar a simulação de chat após 1 segundo
+setTimeout(() => {
+    playStep(currentStep);
+}, 1000);
+
+</script>
+</body>
+</html>
