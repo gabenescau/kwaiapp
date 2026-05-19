@@ -1,5 +1,0 @@
-# HTTrack Website Copier Cookie File
-# This file format is compatible with Netscape cookies
-premiacaocentral.com	TRUE	/	FALSE	1999999999	__cf_bm	x2_TeyejHpIylIaoCbCIuJixavzs3RSoq_f5Fpykw5k-1779208118.577611-1.0.1.1-5yOmCJDZGFa1TrR8XwfFYG13usWeYlTQ.CjFMsN1oLZXzrRkB7UlXg4kAxs4nGRkx_LlJQzGzCmPKOM47LUYVWWKQ.Ydqs4BpP1W2MnN5RPYw1EyX88Veu.XM6aGdz5v
-premiacaocentral.com	TRUE	/	FALSE	1999999999	SameSite	None
-
