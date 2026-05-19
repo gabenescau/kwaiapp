@@ -5,28 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
     <title>Atendimento - Questionário Premiado</title>
 
-    <!-- Meta Pixel Code -->
-    <script>
-    !function(f,b,e,v,n,t,s)
-    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-    n.queue=[];t=b.createElement(e);t.async=!0;
-    t.src=v;s=b.getElementsByTagName(e)[0];
-    s.parentNode.insertBefore(t,s)}(window, document,'script',
-    'https://connect.facebook.net/en_US/fbevents.js');
-    fbq('init', '1520663849512203');
-    fbq('track', 'PageView');
-    fbq('track', 'ViewContent');
-    </script>
-    <noscript><img height="1" width="1" style="display:none"
-    src="https://www.facebook.com/tr?id=1520663849512203&ev=PageView&noscript=1"
-    /></noscript>
-    <!-- End Meta Pixel Code -->
-
-    <!-- UTMify -->
-    <script src="https://cdn.utmify.com.br/scripts/utms/latest.js" data-utmify-prevent-xcod-sck data-utmify-prevent-subids async defer></script>
-
     <style>
         /* ===== CSS VARIABLES (extraídas do styles-L1BozSOK.css original) ===== */
         :root {
@@ -469,6 +447,36 @@
             animation: fadeIn 0.3s ease-out;
         }
     </style>
+        <!-- Meta Pixel Code -->
+    <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '1520663849512203');
+    fbq('track', 'PageView');
+    fbq('track', 'ViewContent');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=1520663849512203&ev=PageView&noscript=1"
+    /></noscript>
+    <!-- End Meta Pixel Code -->
+
+    <!-- UTMify -->
+    <script src="https://cdn.utmify.com.br/scripts/utms/latest.js" data-utmify-prevent-xcod-sck data-utmify-prevent-subids async defer></script>
+
+    <!-- Microsoft Clarity -->
+    <script type="text/javascript">
+        (function(c,l,a,r,i,t,y){
+            c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+            t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+            y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+        })(window, document, "clarity", "script", "wtrn12qioz");
+    </script>
 </head>
 <body>
 
@@ -862,8 +870,7 @@ function onVideoProgress(time) {
         const saved = Number(localStorage.getItem(LS_KEY_CTA_STARTED));
         if (Number.isFinite(saved) && saved > 0) {
             videoStartedAt = saved;
-            const remaining = Math.max(0, saved + VIDEO_CTA_MS - Date.now());
-            setTimeout(() => showFinalCTA(), remaining);
+            // Removed global setTimeout to prevent async bugs
         }
     } catch(e) {}
 })();
@@ -1099,6 +1106,18 @@ async function playStep(stepIndex) {
         showOptions(step.options);
     }
     // (o video já foi renderizado como mensagem de bot)
+    if (stepIndex === STEPS.length - 1) {
+        if (videoStartedAt) {
+            const elapsed = Date.now() - videoStartedAt;
+            if (elapsed >= VIDEO_CTA_MS) {
+                showFinalCTA();
+            } else {
+                setTimeout(() => {
+                    if (currentStep === STEPS.length - 1) showFinalCTA();
+                }, VIDEO_CTA_MS - elapsed);
+            }
+        }
+    }
 }
 
 // ===== INICIAR =====
@@ -1109,3 +1128,5 @@ setTimeout(() => {
 </script>
 </body>
 </html>
+
+
