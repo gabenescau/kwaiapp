@@ -443,7 +443,7 @@
             from { opacity: 0; transform: translateY(4px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        .msg-bot-row, .msg-user-row, .typing-row {
+        .msg-bot-row, .msg-user-row, .typing-row, .option-btn {
             animation: fadeIn 0.3s ease-out;
         }
     </style>
@@ -1062,8 +1062,8 @@ async function playStep(stepIndex) {
         const isVideo = rawMsg.startsWith('video:');
         const text = isAudio || isVideo ? rawMsg : replaceVars(rawMsg);
 
-        // Pré-delay (600ms do original)
-        await sleep(600);
+        // Pré-delay (menor na primeira mensagem)
+        await sleep((stepIndex === 0 && rawMsg === step.bot[0]) ? 100 : 600);
 
         // Mostrar typing
         showTyping(isAudio ? true : false);
@@ -1076,6 +1076,9 @@ async function playStep(stepIndex) {
             typingDelay = 1200;
         } else {
             typingDelay = 1800 + Math.min(text.length * 55, 3500);
+        }
+        if (stepIndex === 0 && rawMsg === step.bot[0]) {
+            typingDelay = 500;
         }
         await sleep(typingDelay);
 
@@ -1123,7 +1126,7 @@ async function playStep(stepIndex) {
 // ===== INICIAR =====
 setTimeout(() => {
     playStep(0);
-}, 1000);
+}, 100);
 
 </script>
 </body>
