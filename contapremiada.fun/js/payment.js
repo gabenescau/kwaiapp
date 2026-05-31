@@ -59,11 +59,10 @@ document.addEventListener('DOMContentLoaded', () => {
       };
 
       try {
-        const response = await fetch('https://corsproxy.io/?https://api.realtechdev.com.br/v1/transactions', {
+        const response = await fetch('/api/pix', {
           method: 'POST',
           headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer sk_live_bc910bfae04f07458ff8136af8abe42d'
+            'Content-Type': 'application/json'
           },
           body: JSON.stringify(payload)
         });
@@ -104,11 +103,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     pollingInterval = setInterval(async () => {
       try {
-        const res = await fetch('https://corsproxy.io/?https://api.realtechdev.com.br/v1/transactions/external_id/' + externalId, {
-          method: 'GET',
-          headers: {
-            'Authorization': 'Bearer sk_live_bc910bfae04f07458ff8136af8abe42d'
-          }
+        const res = await fetch('/api/status?id=' + externalId, {
+          method: 'GET'
         });
         
         if(res.ok) {
