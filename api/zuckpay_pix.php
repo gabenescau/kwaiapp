@@ -93,10 +93,12 @@ class ZuckpayPIX {
             ];
         }
         
-        if (!preg_match('/^\d{10,11}$/', str_replace([' ', '-', '(', ')'], '', $payload['telefone']))) {
+        // Validar telefone (aceita 10-11 dígitos ou 13 com DDI 55)
+        $telefone_limpo = preg_replace('/[^\d]/', '', $payload['telefone']);
+        if (!preg_match('/^(\d{10,11}|55\d{10,11})$/', $telefone_limpo)) {
             return [
                 'valid' => false,
-                'error' => 'Telefone inválido'
+                'error' => 'Telefone inválido (use DDD + número ou DDI 55 + DDD + número)'
             ];
         }
         
