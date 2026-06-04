@@ -22,6 +22,14 @@ class ZuckpayPIX {
     public function generateQRCode($data) {
         $payload = json_encode($data);
         
+        // Debug: log credenciais
+        error_log("[Zuckpay] Client ID: " . substr($this->clientId, 0, 10) . "***");
+        error_log("[Zuckpay] Payload: " . substr($payload, 0, 200) . "...");
+        
+        // Calcular Basic Auth
+        $basicAuth = base64_encode("{$this->clientId}:{$this->clientSecret}");
+        error_log("[Zuckpay] Basic Auth Length: " . strlen($basicAuth));
+        
         $ch = curl_init($this->apiUrl);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_TIMEOUT, 30);
@@ -32,7 +40,7 @@ class ZuckpayPIX {
         curl_setopt($ch, CURLOPT_HTTPHEADER, [
             'Content-Type: application/json',
             'Accept: application/json',
-            'Authorization: Basic ' . base64_encode("{$this->clientId}:{$this->clientSecret}")
+            'Authorization: Basic ' . $basicAuth
         ]);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
@@ -42,6 +50,9 @@ class ZuckpayPIX {
         $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         $error = curl_error($ch);
         curl_close($ch);
+        
+        error_log("[Zuckpay] HTTP Response Code: $httpCode");
+        error_log("[Zuckpay] Response: " . substr($response, 0, 500));
         
         if ($error) {
             return [
