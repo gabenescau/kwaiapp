@@ -86,8 +86,10 @@
       }
     });
 
-    console.log('[Zuckpay] Enviando:', JSON.stringify(payload, null, 2));
-    console.log('[Zuckpay] Parâmetros URL:', JSON.stringify(urlParams, null, 2));
+    // Enriquece payload com dados da Dracofy
+    if (typeof DracofyIntegration !== 'undefined') {
+      DracofyIntegration.enriquecerPayload(payload);
+    }
 
     let response;
     try {
