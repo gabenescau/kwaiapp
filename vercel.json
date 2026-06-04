@@ -1,6 +1,0 @@
-{
-  "functions": {
-    "api/pix-proxy.js": { "maxDuration": 30 },
-    "api/pix-status.js": { "maxDuration": 30 }
-  }
-}
