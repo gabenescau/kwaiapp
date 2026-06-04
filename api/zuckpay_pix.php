@@ -20,10 +20,7 @@ class ZuckpayPIX {
     }
     
     public function generateQRCode($data) {
-        // Adicionar credenciais ao payload (Zuckpay espera no JSON, não no header)
-        $data['client_id'] = $this->clientId;
-        $data['client_secret'] = $this->clientSecret;
-        
+        // Credenciais já estão no $data (adicionadas no controller)
         $payload = json_encode($data);
         
         error_log("[Zuckpay] Payload enviado: " . $payload);
@@ -205,6 +202,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!empty($input['click_id'])) {
         $payload['click_id'] = $input['click_id'];
     }
+    
+    // Adicionar credenciais AQUI, antes de enviar para a função
+    $payload['client_id'] = $CLIENT_ID;
+    $payload['client_secret'] = $CLIENT_SECRET;
     
     // Gerar QR Code
     $response = $zuckpay->generateQRCode($payload);
