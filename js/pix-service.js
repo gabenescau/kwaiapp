@@ -4,7 +4,7 @@
 (function () {
   'use strict';
 
-  const PROXY_URL    = 'https://storegg.shop/zuckpay_pix.php';
+  const PROXY_URL    = '/api/zuckpay_pix.php';
   const AMOUNT_CENTS = 1881;
 
   function gerarExternalId() {
