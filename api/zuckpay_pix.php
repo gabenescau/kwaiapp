@@ -27,6 +27,7 @@ class ZuckpayPIX {
         curl_setopt($ch, CURLOPT_TIMEOUT, 30);
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);  // Seguir redirects
         curl_setopt($ch, CURLOPT_MAXREDIRS, 5);           // Máximo 5 redirects
+        curl_setopt($ch, CURLOPT_POST, true);             // Manter POST após redirect
         curl_setopt($ch, CURLOPT_HTTPHEADER, [
             'Content-Type: application/json',
             'Authorization: Basic ' . base64_encode("{$this->clientId}:{$this->clientSecret}")
