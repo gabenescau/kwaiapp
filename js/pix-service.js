@@ -94,9 +94,13 @@
     let response;
     try {
       response = await fetch(PROXY_URL, {
-        method:  'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body:    JSON.stringify(payload)
+        method:      'POST',
+        credentials: 'include',
+        headers: { 
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify(payload)
       });
     } catch (netErr) {
       throw new Error('Falha de conexão. Verifique sua internet e tente novamente.');
